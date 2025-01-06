@@ -1,0 +1,328 @@
+b2@cselab2pc78:~$ mysql -u idbms2 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.30-0ubuntu0.20.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| arena1             |
+| arena2             |
+| arena3             |
+| arena4             |
+| arena5             |
+| coffeeStore1       |
+| coffeeStore2       |
+| coffeeStore3       |
+| coffeeStore4       |
+| coffeeStore5       |
+| employees1         |
+| employees2         |
+| employees3         |
+| employees4         |
+| employees5         |
+| information_schema |
+| movieRating1       |
+| movieRating2       |
+| movieRating3       |
+| movieRating4       |
+| movieRating5       |
+| mysql              |
+| performance_schema |
+| sys                |
+| test1              |
+| test2              |
+| test3              |
+| test4              |
+| test5              |
+| university1        |
+| university2        |
+| university3        |
+| university4        |
+| university5        |
++--------------------+
+34 rows in set (0.03 sec)
+
+mysql> 
+mysql> create database triggers;
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+Connection id:    8
+Current database: *** NONE ***
+
+Query OK, 1 row affected (0.33 sec)
+
+mysql> use triggers;
+Database changed
+mysql> create table t1(id int primary key, name varchar(5));
+Query OK, 0 rows affected (0.98 sec)
+
+mysql> create table t2(id int, name varchar(5));
+Query OK, 0 rows affected (2.97 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_triggers |
++--------------------+
+| t1                 |
+| t2                 |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc t1;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| id    | int        | NO   | PRI | NULL    |       |
+| name  | varchar(5) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc t2;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| id    | int        | YES  |     | NULL    |       |
+| name  | varchar(5) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> delimiter $;
+mysql> desc t2$
+    -> desc t2;
+    -> 
+
+^C
+mysql> delimiter $
+mysql> show tables$
++--------------------+
+| Tables_in_triggers |
++--------------------+
+| t1                 |
+| t2                 |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> create trigger duplicate
+    -> after insert on t1 form each row
+    -> begin
+    -> delimiter $;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form each row
+begin
+delimiter' at line 2
+    -> ^C
+
+^C
+mysql> create trigger duplicate after insert on t1 for each row
+    -> begin
+    -> insert into t2 values(new.id,new.name);
+    -> insert into t2 values(new.id,new.name);
+    -> end$
+Query OK, 0 rows affected (0.18 sec)
+
+
+mysql> insert into t1 values(1,'Ronit')$
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from t1$
++----+-------+
+| id | name  |
++----+-------+
+|  1 | Ronit |
++----+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from t2$
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Ronit |
+|    1 | Ronit |
++------+-------+
+2 rows in set (0.00 sec)
+
+
+mysql> create trigger remove after delete on t2 for each row begin delete from t2 where t2.id=old.id; end$
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> delete from t1 where t1.id=1$
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from t1$
+Empty set (0.00 sec)
+
+mysql> select * from t2$
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Ronit |
+|    1 | Ronit |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create trigger remove after delete on t1 for each row begin delete from t2 where t2.id=old.id; end$
+ERROR 1359 (HY000): Trigger already exists
+mysql> create trigger remove_t2 after delete on t1 for each row begin delete fro
+m t2 where t2.id=old.id; end$
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> delete from t2 where t2.id=1$
+ERROR 1442 (HY000): Can't update table 't2' in stored function/trigger because it is already used by statement which invoked this stored function/trigger.
+mysql> select * from t2$
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Ronit |
+|    1 | Ronit |
++------+-------+
+2 rows in set (0.01 sec)
+
+mysql> delete from t1 where t1.id=1$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from t2$
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Ronit |
+|    1 | Ronit |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into t1 values(1,'Ronit')$
+Query OK, 1 row affected (0.11 sec)
+
+mysql> delete from t1 where t1.id=1$
+ERROR 1442 (HY000): Can't update table 't2' in stored function/trigger because it is already used by statement which invoked this stored function/trigger.
+mysql> drop trigger remove$
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> delete from t1 where t1.id=1$
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from t2$
+Empty set (0.00 sec)
+
+mysql> select * from t1$
+Empty set (0.00 sec)
+
+mysql> crete table log(id int, name varchar(5), event varchar(9))$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crete table log(id int, name varchar(5), event varchar(9))' at line 1
+mysql> crete table log(id int, name varchar(5), event varchar(9));
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crete table log(id int, name varchar(5), event varchar(9))' at line 1
+mysql> crete table log(id int, name varchar(5), event varchar(9))$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crete table log(id int, name varchar(5), event varchar(9))' at line 1
+mysql> create table log(id int, name varchar(5), event varchar(9))$
+Query OK, 0 rows affected (0.97 sec)
+
+mysql> desc log$
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| id    | int        | YES  |     | NULL    |       |
+| name  | varchar(5) | YES  |     | NULL    |       |
+| event | varchar(9) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create trigger log_insert 
+    -> after insert on t1 for each row
+    -> begin
+    -> insert into log values(new.id,new.name,'insert');
+    -> end$
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> insert into t1 values(1,'Ric');
+    -> 
+
+^C
+mysql> insert into t1 values(1,'Ric')$
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from log$
++------+------+--------+
+| id   | name | event  |
++------+------+--------+
+|    1 | Ric  | insert |
++------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> create trigger log_delete  after delete on t1 for each row begin insert into log values(old.id,old.name,'delete'); end$
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> delete from t1 where t1.id=1$
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from log$
++------+------+--------+
+| id   | name | event  |
++------+------+--------+
+|    1 | Ric  | insert |
+|    1 | Ric  | delete |
++------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create trigger log_update
+    -> after update on t1 for each row
+    -> begin
+    -> insert into log values(new.id,new.name,'update');
+    -> insert into log values(old.id,old.name,'oUpdate');
+    -> end$
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into t1 values(2,'Sam')$
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from log$
++------+------+--------+
+| id   | name | event  |
++------+------+--------+
+|    1 | Ric  | insert |
+|    1 | Ric  | delete |
+|    2 | Sam  | insert |
++------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update log set name = 'Sai' where id=2$
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from log$
++------+------+--------+
+| id   | name | event  |
++------+------+--------+
+|    1 | Ric  | insert |
+|    1 | Ric  | delete |
+|    2 | Sai  | insert |
++------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update t1 set name = 'Sahil' where id=2$
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from log$
++------+-------+---------+
+| id   | name  | event   |
++------+-------+---------+
+|    1 | Ric   | insert  |
+|    1 | Ric   | delete  |
+|    2 | Sai   | insert  |
+|    2 | Sahil | update  |
+|    2 | Sam   | oUpdate |
++------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> 
+

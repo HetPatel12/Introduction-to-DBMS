@@ -1,0 +1,445 @@
+b5@cselab2pc49:~$ mysql -u -idbms5 -p
+Enter password:
+ERROR 1045 (28000): Access denied for user '-idbms5'@'localhost' (using password: YES)
+b5@cselab2pc49:~$ mysql -u -idbms5 -p
+Enter password:
+ERROR 1045 (28000): Access denied for user '-idbms5'@'localhost' (using password: YES)
+b5@cselab2pc49:~$ mysql -u -idbms5 -p
+Enter password:
+ERROR 1045 (28000): Access denied for user '-idbms5'@'localhost' (using password: YES)
+b5@cselab2pc49:~$ mysql -u -idbms5 -p
+Enter password:
+ERROR 1045 (28000): Access denied for user '-idbms5'@'localhost' (using password: YES)
+b5@cselab2pc49:~$ mysql -u idbms5 -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.7.39-0ubuntu0.18.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| arena5             |
+| coffeeStore5       |
+| employees5         |
+| movieRating5       |
+| university5        |
++--------------------+
+6 rows in set (0.08 sec)
+
+mysql> use university5;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table(id int, name varchar(20), dept_name varchar(20), salary int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id int, name varchar(20), dept_name varchar(20), salary int)' at line 1
+mysql> create table(id int, name varchar(20), dept_name varchar(20), salary int, primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id int, name varchar(20), dept_name varchar(20), salary int, primary key(id))' at line 1
+mysql> create table(id int, name varchar(20), dept_name varchar(20), salary int, primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id int, name varchar(20), dept_name varchar(20), salary int, primary key(id))' at line 1
+mysql> create table instructor(id int, name varchar(20), dept_name varchar(20), salary int, primary key(id));
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> create table department ( dept_name varchar(20), building int, budget int, primary key (dept_name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+
+mysql> create table department ( dept_name varchar(20), building int, budget int, primary key (dept_name));
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> create table course (course_id int, dept_name varchar(20),credits int, primary key(course_id) );
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> select * from instructor;
+Empty set (0.01 sec)
+
+mysql> desc instructor;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int(11)     | NO   | PRI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| salary    | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table instructor;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_university5 |
++-----------------------+
+| course                |
+| department            |
+| instructor            |
++-----------------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table instructor modify id int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc instructor;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int(11)     | NO   | PRI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| salary    | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table department
+    -> add check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'));
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into departments ('rr' ,4,2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''rr' ,4,2)' at line 1
+mysql> insert into departments ('ece' ,4,2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''ece' ,4,2)' at line 1
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_name | varchar(20) | NO   | PRI | NULL    |       |
+| building  | int(11)     | YES  |     | NULL    |       |
+| budget    | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into department( 'ee' , 98, 90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''ee' , 98, 90)' at line 1
+mysql> insert into department( 'ece' , 98, 90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''ece' , 98, 90)' at line 1
+mysql>
+mysql> insert into department( "ece" , 98, 90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"ece" , 98, 90)' at line 1
+mysql> insert into department values( "ece" , 98, 90);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into department values( "e" , 98, 90);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from department;
++-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
++-----------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> alter table department
+    ->     -> add check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> add check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'))' at line 2
+mysql> alter table department
+    ->     ->     -> add check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '->     -> add check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'))' at line 2
+mysql> alter table department add check (dept_name in ('cce' , 'mme
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add constraint check (dept_name in ('cce
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into department ('e', 78,90);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''e', 78,90)' at line 1
+mysql> insert into department values ('e', 78,90);
+ERROR 1062 (23000): Duplicate entry 'e' for key 'PRIMARY'
+mysql> insert into department values ('o', 78,90);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from department;                                 +-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
+| o         |       78 |     90 |
++-----------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> alter table department add constraint check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'));
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;                                 +-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
+| o         |       78 |     90 |
++-----------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into department values ('ok', 78,90);Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from department;                                 +-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
+| o         |       78 |     90 |
+| ok        |       78 |     90 |
++-----------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into department values ('cce', 78,90);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from department;
++-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| cce       |       78 |     90 |
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
+| o         |       78 |     90 |
+| ok        |       78 |     90 |
++-----------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_name | varchar(20) | NO   | PRI | NULL    |       |
+| building  | int(11)     | YES  |     | NULL    |       |
+| budget    | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into department values ('yguy', 78,90);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from department;
++-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| cce       |       78 |     90 |
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
+| o         |       78 |     90 |
+| ok        |       78 |     90 |
+| yguy      |       78 |     90 |
++-----------+----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> alter table department add constraint check (budget>=20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into department values ('yguy', 78,10);
+ERROR 1062 (23000): Duplicate entry 'yguy' for key 'PRIMARY'
+mysql> insert into department values ('lshblt', 78,10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> alter table department add check (dept_name in ('cce' , 'mme', 'cse', 'ece', 'phy', 'bio'));
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into department values ('yg', 78,10);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from department;
++-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| cce       |       78 |     90 |
+| e         |       98 |     90 |
+| ece       |       98 |     90 |
+| lshblt    |       78 |     10 |
+| o         |       78 |     90 |
+| ok        |       78 |     90 |
+| yg        |       78 |     10 |
+| yguy      |       78 |     90 |
++-----------+----------+--------+
+8 rows in set (0.00 sec)
+
+mysql> alter table department modify column dept_name enum;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table department modify column dept_name enum('cce' , 'mme', 'cse', 'ece', 'phy', 'bio');
+ERROR 1265 (01000): Data truncated for column 'dept_name' at row 2
+mysql> delete from department ;
+Query OK, 8 rows affected (0.03 sec)
+
+mysql> alter table department modify column dept_name enum('cce' , 'mme', 'cse', 'ece', 'phy', 'bio');
+Query OK, 0 rows affected (0.57 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into table department values('gg', 89,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table department values('gg', 89,10)' at line 1
+mysql> insert into table department values('ece', 89,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table department values('ece', 89,10)' at line 1
+mysql>
+mysql>
+mysql>
+mysql> insert into table department values('ece', 89,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table department values('ece', 89,10)' at line 1
+mysql> insert into table department values('ece', 89,100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table department values('ece', 89,100)' at line 1
+mysql> insert into department values('ece', 89,100);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into department values('e', 89,100);
+ERROR 1265 (01000): Data truncated for column 'dept_name' at row 1
+mysql> alter table department modify column dept_name enum('cce' , 'mme', 'cse', 'ece', 'phy', 'bio');^C^C^C^C^C^C
+
+^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> alter table department
+    -> add constraint foreign key (dept_name) references ^C
+
+^C
+mysql> alter table course
+    -> add constraint foreign key (dept_name) references department(dept_name);
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> desc department;
++-----------+-------------------------------------------+------+-----+---------+-------+
+| Field     | Type                                      | Null | Key | Default | Extra |
++-----------+-------------------------------------------+------+-----+---------+-------+
+| dept_name | enum('cce','mme','cse','ece','phy','bio') | NO   | PRI | NULL    |       |
+| building  | int(11)                                   | YES  |     | NULL    |       |
+| budget    | int(11)                                   | YES  |     | NULL    |       |
++-----------+-------------------------------------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table course add constraint fk foreign key (dept_name) references department(dept_name);
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> alter table course add constraint fk foreign key (dept_name) references department(dept_name) on delete cascade;
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> alter table course add constraint  foreign key (dept_name) references department(dept_name) on delete cascade;
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> describe departm,ent;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ent' at line 1
+mysql> describe department;
++-----------+-------------------------------------------+------+-----+---------+-------+
+| Field     | Type                                      | Null | Key | Default | Extra |
++-----------+-------------------------------------------+------+-----+---------+-------+
+| dept_name | enum('cce','mme','cse','ece','phy','bio') | NO   | PRI | NULL    |       |
+| building  | int(11)                                   | YES  |     | NULL    |       |
+| budget    | int(11)                                   | YES  |     | NULL    |       |
++-----------+-------------------------------------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> create table department (dept_name varchar(20) primary key, building int, budget int);
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> alter table course add constraint  foreign key (dept_name) references department(dept_name) on delete cascade;
+Query OK, 0 rows affected (0.73 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table instructor add email varchar(20);
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc instructor;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int(11)     | NO   | PRI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| salary    | int(11)     | YES  |     | NULL    |       |
+| email     | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table instructor add constraint uniqe (email);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(email)' at line 1
+mysql> alter table instructor add constraint unique (email);
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table instructor add dob date;
+Query OK, 0 rows affected (0.39 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add constraint budget >=0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>=0' at line 1
+mysql> alter table department alter budget int set default 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int set default 0' at line 1
+mysql>
+mysql> alter table department alter budget set default 0;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add constraint check budget >=0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'budget >=0' at line 1
+mysql> alter table department add constraint check (budget >=0);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_name | varchar(20) | NO   | PRI | NULL    |       |
+| building  | int(11)     | YES  |     | NULL    |       |
+| budget    | int(11)     | YES  |     | 0       |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into department values('ece', 9, -9);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from department;
++-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| ece       |        9 |     -9 |
++-----------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> alter table instructor modify dob varchar(20);
+Query OK, 0 rows affected (0.52 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> delete from department where dept_name='ece';
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from department;
+Empty set (0.00 sec)
+
+mysql> insert into department values('phy' , 45, 89);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> alter table department modify dept_name phy|lol;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'phy|lol' at line 1
+mysql> alter table department modify dept_name[ phy|lol];
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[ phy|lol]' at line 1
+mysql> update department set dept_name ='phy' where dept_name='ece';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from department;
++-----------+----------+--------+
+| dept_name | building | budget |
++-----------+----------+--------+
+| phy       |       45 |     89 |
++-----------+----------+--------+
+1 row in set (0.00 sec)

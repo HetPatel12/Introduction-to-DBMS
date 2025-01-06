@@ -1,0 +1,299 @@
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| arena5             |
+| coffeeStore5       |
+| employees5         |
+| information_schema |
+| movieRating5       |
+| performance_schema |
+| university5        |
++--------------------+
+7 rows in set (0.03 sec)
+
+mysql> use movieRating5;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_movieRating5 |
++------------------------+
+| Movie                  |
+| Rating                 |
+| Reviewer               |
++------------------------+
+3 rows in set (0.00 sec)
+
+
+-- Retrieve the names of reviewers who have rated the same number of stars as 'Mike Anderson' for any movie
+SELECT name FROM Reviewer WHERE rID IN (SELECT rID FROM Rating WHERE stars = 
+(SELECT stars FROM Rating WHERE rID = (SELECT rID FROM Reviewer WHERE name = 'Mike Anderson')));
+
+mysql> select name from Reviewer where rID in (select rID from Rating where stars = (select Stars from Rating where rID = (select rID from Reviewer where name like 'Mike Anderson')));
++------------------+
+| name             |
++------------------+
+| Mike Anderson    |
+| Chris Jackson    |
+| Elizabeth Thomas |
+| Ashley White     |
++------------------+
+4 rows in set (0.04 sec)
+
+
+
+mysql> select name from Reviewer where rID in (select rID from Rating where stars = (select Stars from Rating where rID = (select rID from Reviewer where name like 'Mike Anderson'))) 
+	 and name not like 'Mike Anderson';
++------------------+
+| name             |
++------------------+
+| Chris Jackson    |
+| Elizabeth Thomas |
+| Ashley White     |
++------------------+
+3 rows in set (0.00 sec)
+
+
+
+
+mysql> select title from Movie as m, Rating as ra, Reviewer as r where m.mID = ra.mID and name = 'Chris Jackson' and stars is NULL;
+Empty set (0.01 sec)
+
+mysql> select title from Movie as m, Rating as ra, Reviewer as r where name = 'Chris Jackson' and stars
+is NULL;
+Empty set (0.00 sec)
+
+mysql> select title from Movie as m, Rating as ra, Reviewer as r where m.mID = ra.mID and name like 'Chris Jackson' and stars is NULL;
+Empty set (0.00 sec)
+
+mysql> select title from Movie as m, Rating as ra, Reviewer as r where name like 'Chris Jackson' and stars is NULL;
+Empty set (0.00 sec)
+
+mysql> select title from Movie, Rating, Reviewer where name= 'Chris Jackson' and stars is NULL;
+Empty set (0.00 sec)
+
+mysql> select * from Movie, Rating, Reviewer where name= 'Chris Jackson' and stars is NULL;
+Empty set (0.00 sec)
+
+mysql> select title from Movie where mID not in (select mID from Rating where rID = (select rID from Reviewer where name like 'Chris Jackson'));
++--------------------+
+| title              |
++--------------------+
+| Gone with the Wind |
+| Star Wars          |
+| Titanic            |
+| Snow White         |
+| Avatar             |
++--------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from Movie where mID in (select mID from Rating where rID = 205) and mID not in (select
+mID from Rating where rID = 203);
++------+-------+------+------------------+
+| mID  | title | year | director         |
++------+-------+------+------------------+
+|  104 | E.T.  | 1982 | Steven Spielberg |
++------+-------+------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select director from Movie group by director having count(director) > 1;
++------------------+
+| director         |
++------------------+
+| Steven Spielberg |
+| James Cameron    |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select title from Movie, Rating where Movie.mID = Rating.mID;
++-------------------------+
+| title                   |
++-------------------------+
+| Gone with the Wind      |
+| Gone with the Wind      |
+| Snow White              |
+| The Sound of Music      |
+| Raiders of the Lost Ark |
+| Raiders of the Lost Ark |
+| Gone with the Wind      |
+| The Sound of Music      |
+| E.T.                    |
+| Raiders of the Lost Ark |
+| Avatar                  |
+| Snow White              |
+| Avatar                  |
+| E.T.                    |
++-------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select title, count(title) from Movie, Rating where Movie.mID = Rating.mID group by title;
++-------------------------+--------------+
+| title                   | count(title) |
++-------------------------+--------------+
+| Gone with the Wind      |            3 |
+| Snow White              |            2 |
+| The Sound of Music      |            2 |
+| Raiders of the Lost Ark |            3 |
+| E.T.                    |            2 |
+| Avatar                  |            2 |
++-------------------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select title, count(title) from Movie, Rating where Movie.mID = Rating.mID group by title order by title;
++-------------------------+--------------+
+| title                   | count(title) |
++-------------------------+--------------+
+| Avatar                  |            2 |
+| E.T.                    |            2 |
+| Gone with the Wind      |            3 |
+| Raiders of the Lost Ark |            3 |
+| Snow White              |            2 |
+| The Sound of Music      |            2 |
++-------------------------+--------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select stars from Rating where stars in (4, 5);
++-------+
+| stars |
++-------+
+|     4 |
+|     4 |
+|     4 |
+|     4 |
+|     5 |
+|     5 |
++-------+
+6 rows in set (0.00 sec)
+
+mysql> select stars, count(stars) from Rating where stars in (4, 5) group by stars;
++-------+--------------+
+| stars | count(stars) |
++-------+--------------+
+|     4 |            4 |
+|     5 |            2 |
++-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select title from Movie, Rating where Movie.mID = Rating.mID;
++-------------------------+
+| title                   |
++-------------------------+
+| Gone with the Wind      |
+| Gone with the Wind      |
+| Snow White              |
+| The Sound of Music      |
+| Raiders of the Lost Ark |
+| Raiders of the Lost Ark |
+| Gone with the Wind      |
+| The Sound of Music      |
+| E.T.                    |
+| Raiders of the Lost Ark |
+| Avatar                  |
+| Snow White              |
+| Avatar                  |
+| E.T.                    |
++-------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select title from Movie, Rating where Movie.mID = Rating.mID order by title;
++-------------------------+
+| title                   |
++-------------------------+
+| Avatar                  |
+| Avatar                  |
+| E.T.                    |
+| E.T.                    |
+| Gone with the Wind      |
+| Gone with the Wind      |
+| Gone with the Wind      |
+| Raiders of the Lost Ark |
+| Raiders of the Lost Ark |
+| Raiders of the Lost Ark |
+| Snow White              |
+| Snow White              |
+| The Sound of Music      |
+| The Sound of Music      |
++-------------------------+
+14 rows in set (0.00 sec)
+
+mysql> select title, max(stars) from Movie, Rating where Movie.mID = Rating.mID group by title order by
+title;
++-------------------------+------------+
+| title                   | max(stars) |
++-------------------------+------------+
+| Avatar                  |          5 |
+| E.T.                    |          3 |
+| Gone with the Wind      |          4 |
+| Raiders of the Lost Ark |          4 |
+| Snow White              |          5 |
+| The Sound of Music      |          3 |
++-------------------------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select title, (max(stars)-min(stars)) as spread from Movie, Rating where Movie.mID = Rating.mID group by title order by spread;
++-------------------------+--------+
+| title                   | spread |
++-------------------------+--------+
+| Snow White              |      1 |
+| The Sound of Music      |      1 |
+| E.T.                    |      1 |
+| Gone with the Wind      |      2 |
+| Raiders of the Lost Ark |      2 |
+| Avatar                  |      2 |
++-------------------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select title, (max(stars)-min(stars)) as spread from Movie, Rating where Movie.mID = Rating.mID group by title order by spread desc;
++-------------------------+--------+
+| title                   | spread |
++-------------------------+--------+
+| Gone with the Wind      |      2 |
+| Raiders of the Lost Ark |      2 |
+| Avatar                  |      2 |
+| Snow White              |      1 |
+| The Sound of Music      |      1 |
+| E.T.                    |      1 |
++-------------------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select title, max(stars) as maxi from Movie, Rating where Movie.mID = Rating.mID group by title
+having max(stars) = 5 order by title;
++------------+------+
+| title      | maxi |
++------------+------+
+| Avatar     |    5 |
+| Snow White |    5 |
++------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select title as maxi from Movie, Rating where Movie.mID = Rating.mID group by title  having max(stars) > (select max(stars) from Rating where rID = 205) order by title;
++------------+
+| maxi       |
++------------+
+| Avatar     |
+| Snow White |
++------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select title, count(title) from Movie, Rating where Movie.mID = Rating.mID group by title order by title;
++-------------------------+--------------+
+| title                   | count(title) |
++-------------------------+--------------+
+| Avatar                  |            2 |
+| E.T.                    |            2 |
+| Gone with the Wind      |            3 |
+| Raiders of the Lost Ark |            3 |
+| Snow White              |            2 |
+| The Sound of Music      |            2 |
++-------------------------+--------------+
+6 rows in set (0.00 sec)
+
+

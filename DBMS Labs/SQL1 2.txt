@@ -1,0 +1,43 @@
+create table employee(id int(3) primary key, name varchar(20) NOT NULL, street(20), city varchar(20));
+create table company(cname varchar(20) primary key, city varchar(20));
+create table works(id int(3) primary key, cname varchar(20),salary int(10));
+
+desc employee;
+desc company;
+desc works;
+
+insert into employee values(1, 'Het', 'Modasa', 'Ahmedabad');
+insert into employee values(2, 'Vedant', 'Godhra', 'Ahmedabad');
+insert into employee values(3, 'Satyam','Vasant Vihar','Delhi');
+insert into employee values(4, 'Mili','Kudasan','Gandhinagar');
+insert into employee values(5, 'Vishu','Sargasan','Gandhinagar');
+select * from employee;
+
+insert into company values('JP Morgan','San Francisco');
+insert into company values('Credit Suisse','Zurich');
+insert into company values('McKinsey','Vancouver');
+insert into company values('Goldman Sachs','Calgary');
+select * from company;
+
+insert into works values(1, 'Mckinsey','400000');
+insert into works values(2, 'McKinsey','400000');
+insert into works values(3, 'JP Morgan','300000');
+insert into works values(4, 'Goldman Sachs','275000');
+insert into works values(5, 'Credit Suisse','375000');
+select * from works;
+
+select * from employee, works;
+select * from employee join works;
+select * from employee join works on employee.id = works.id;
+select name,street,city from employee join works on employee.id = works.id where cname='McKinsey' or cname = 'JP Morgan';
+select name from employee join works on employee.id = works.id;
+
+insert into employee values(6, 'Ankit','Hanspura','Chandkheda');
+insert into employee values(7, 'Bhavin','ShambhajiNagar','ShivajiNagar');
+insert into employee values(8, 'Harsh','Express Hwy Rd','Ahmedabad');
+
+insert into works values(6, 'McKinsey',123987);
+insert into works values(7,'JP Morgan',234123);
+insert into works values(8,'Credit Suisse',143000);
+select*from works;
+

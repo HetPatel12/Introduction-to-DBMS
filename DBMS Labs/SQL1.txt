@@ -1,0 +1,427 @@
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.7.39-0ubuntu0.18.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| arena5             |
+| coffeeStore5       |
+| employees5         |
+| movieRating5       |
+| university5        |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use employees5
+Database changed
+
+mysql> create table employee(employee_id int(3) primary key,employee_name varchar(20) NOT NULL,street varchar(15),city varchar(15));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> create table company(company_name varchar(15) primary key,city varchar(15));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> create table works(employee_id int(3) primary key,company_name varchar(15),salary int(6) NOT NULL,foreign key(company_name)references company(company_name);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+
+mysql> select*from employee;
+Empty set (0.01 sec)
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int(3)      | NO   | PRI | NULL    |       |
+| employee_name | varchar(20) | NO   |     | NULL    |       |
+| street        | varchar(15) | YES  |     | NULL    |       |
+| city          | varchar(15) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc company;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| company_name | varchar(15) | NO   | PRI | NULL    |       |
+| city         | varchar(15) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table(
+    -> employee_id int(3) primary key,
+    -> company_name varchar(15),
+    -> salary int(6) NOT NULL,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+employee_id int(3) primary key,
+company_name varchar(15),
+salary int(6) NOT NU' at line 1
+
+mysql> create table works( employee_id int(3) primary key, company_name varchar(15), salary int(6) NOT NULL,foreign key(company_name)references company(company_name) );
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> desc works;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| employee_id  | int(3)      | NO   | PRI | NULL    |       |
+| company_name | varchar(15) | YES  | MUL | NULL    |       |
+| salary       | int(6)      | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into employee values(100,'Aanchal','ViratNagar','Kishangarh');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee values(101,'Ansh','Akbarpura','Lucknow');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(102,'Aanya','ShivagiNagar','Pune');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(103,'Alisha','TilakNagar','Baroda');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(104,'Aditi','Stylus','Bahruch');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from employee;
++-------------+---------------+--------------+------------+
+| employee_id | employee_name | street       | city       |
++-------------+---------------+--------------+------------+
+|         100 | Aanchal       | ViratNagar   | Kishangarh |
+|         101 | Ansh          | Akbarpura    | Lucknow    |
+|         102 | Aanya         | ShivagiNagar | Pune       |
+|         103 | Alisha        | TilakNagar   | Baroda     |
+|         104 | Aditi         | Stylus       | Bahruch    |
++-------------+---------------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into company values('Dell',Mumbai);
+ERROR 1054 (42S22): Unknown column 'Mumbai' in 'field list'
+mysql> insert into company values('Dell'',Mumbai');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+
+mysql> insert into company values('Dell','Mumbai');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into company values('Apple','Bangalore');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into company values('Delloite','Hyderabad');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into company values('Amazon','Pune');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select*from company;
++--------------+-----------+
+| company_name | city      |
++--------------+-----------+
+| Amazon       | Pune      |
+| Apple        | Bangalore |
+| Dell         | Mumbai    |
+| Delloite     | Hyderabad |
++--------------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> insert into works values(100,'Apple',999999);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into works values(101,'Amazon',987999);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into works values(102,'Dell',100000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into works values(103,'Delloite',123456);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into works values(104,'Apple',987654);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from works;
++-------------+--------------+--------+
+| employee_id | company_name | salary |
++-------------+--------------+--------+
+|         100 | Apple        | 999999 |
+|         101 | Amazon       | 987999 |
+|         102 | Dell         | 100000 |
+|         103 | Delloite     | 123456 |
+|         104 | Apple        | 987654 |
++-------------+--------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_employees5 |
++----------------------+
+| company              |
+| employee             |
+| works                |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> insert into works values(100,'Dell',34000);
+ERROR 1062 (23000): Duplicate entry '100' for key 'PRIMARY'
+
+mysql> Select employee_id,name
+    -> from employee,works
+    -> where company_name='Apple' or company_name='Dell';
+ERROR 1052 (23000): Column 'employee_id' in field list is ambiguous
+
+mysql> Select employee_id,city from employee,works where company_name='Apple' or company_name='Dell';
+ERROR 1052 (23000): Column 'employee_id' in field list is ambiguous
+
+mysql> Select employee_name,city from employee,works where company_name='Apple' or company_name='Dell';
++---------------+------------+
+| employee_name | city       |
++---------------+------------+
+| Aanchal       | Kishangarh |
+| Aanchal       | Kishangarh |
+| Aanchal       | Kishangarh |
+| Ansh          | Lucknow    |
+| Ansh          | Lucknow    |
+| Ansh          | Lucknow    |
+| Aanya         | Pune       |
+| Aanya         | Pune       |
+| Aanya         | Pune       |
+| Alisha        | Baroda     |
+| Alisha        | Baroda     |
+| Alisha        | Baroda     |
+| Aditi         | Bahruch    |
+| Aditi         | Bahruch    |
+| Aditi         | Bahruch    |
++---------------+------------+
+15 rows in set (0.00 sec)
+
+mysql> Select* from employee,works where company_name='Apple' or company_name='Dell';
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+| employee_id | employee_name | street       | city       | employee_id | company_name | salary |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         100 | Apple        | 999999 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         102 | Dell         | 100000 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         104 | Apple        | 987654 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         100 | Apple        | 999999 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         102 | Dell         | 100000 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         104 | Apple        | 987654 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         100 | Apple        | 999999 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         102 | Dell         | 100000 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         104 | Apple        | 987654 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         100 | Apple        | 999999 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         102 | Dell         | 100000 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         104 | Apple        | 987654 |
+|         104 | Aditi         | Stylus       | Bahruch    |         100 | Apple        | 999999 |
+|         104 | Aditi         | Stylus       | Bahruch    |         102 | Dell         | 100000 |
+|         104 | Aditi         | Stylus       | Bahruch    |         104 | Apple        | 987654 |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+15 rows in set (0.00 sec)
+
+mysql> select*from works;
++-------------+--------------+--------+
+| employee_id | company_name | salary |
++-------------+--------------+--------+
+|         100 | Apple        | 999999 |
+|         101 | Amazon       | 987999 |
+|         102 | Dell         | 100000 |
+|         103 | Delloite     | 123456 |
+|         104 | Apple        | 987654 |
++-------------+--------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from employee;
++-------------+---------------+--------------+------------+
+| employee_id | employee_name | street       | city       |
++-------------+---------------+--------------+------------+
+|         100 | Aanchal       | ViratNagar   | Kishangarh |
+|         101 | Ansh          | Akbarpura    | Lucknow    |
+|         102 | Aanya         | ShivagiNagar | Pune       |
+|         103 | Alisha        | TilakNagar   | Baroda     |
+|         104 | Aditi         | Stylus       | Bahruch    |
++-------------+---------------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select*from employee,works;
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+| employee_id | employee_name | street       | city       | employee_id | company_name | salary |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         100 | Apple        | 999999 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         100 | Apple        | 999999 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         100 | Apple        | 999999 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         100 | Apple        | 999999 |
+|         104 | Aditi         | Stylus       | Bahruch    |         100 | Apple        | 999999 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         101 | Amazon       | 987999 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         101 | Amazon       | 987999 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         101 | Amazon       | 987999 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         101 | Amazon       | 987999 |
+|         104 | Aditi         | Stylus       | Bahruch    |         101 | Amazon       | 987999 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         102 | Dell         | 100000 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         102 | Dell         | 100000 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         102 | Dell         | 100000 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         102 | Dell         | 100000 |
+|         104 | Aditi         | Stylus       | Bahruch    |         102 | Dell         | 100000 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         103 | Delloite     | 123456 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         103 | Delloite     | 123456 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         103 | Delloite     | 123456 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         103 | Delloite     | 123456 |
+|         104 | Aditi         | Stylus       | Bahruch    |         103 | Delloite     | 123456 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         104 | Apple        | 987654 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         104 | Apple        | 987654 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         104 | Apple        | 987654 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         104 | Apple        | 987654 |
+|         104 | Aditi         | Stylus       | Bahruch    |         104 | Apple        | 987654 |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+25 rows in set (0.01 sec)
+
+mysql> selct*from company;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct*from company' at line 1
+
+mysql> select*from employee join works;
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+| employee_id | employee_name | street       | city       | employee_id | company_name | salary |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         100 | Apple        | 999999 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         100 | Apple        | 999999 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         100 | Apple        | 999999 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         100 | Apple        | 999999 |
+|         104 | Aditi         | Stylus       | Bahruch    |         100 | Apple        | 999999 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         101 | Amazon       | 987999 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         101 | Amazon       | 987999 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         101 | Amazon       | 987999 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         101 | Amazon       | 987999 |
+|         104 | Aditi         | Stylus       | Bahruch    |         101 | Amazon       | 987999 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         102 | Dell         | 100000 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         102 | Dell         | 100000 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         102 | Dell         | 100000 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         102 | Dell         | 100000 |
+|         104 | Aditi         | Stylus       | Bahruch    |         102 | Dell         | 100000 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         103 | Delloite     | 123456 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         103 | Delloite     | 123456 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         103 | Delloite     | 123456 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         103 | Delloite     | 123456 |
+|         104 | Aditi         | Stylus       | Bahruch    |         103 | Delloite     | 123456 |
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         104 | Apple        | 987654 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         104 | Apple        | 987654 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         104 | Apple        | 987654 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         104 | Apple        | 987654 |
+|         104 | Aditi         | Stylus       | Bahruch    |         104 | Apple        | 987654 |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select*from employee join works on employee.employee_id=works.employee_id;
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+| employee_id | employee_name | street       | city       | employee_id | company_name | salary |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+|         100 | Aanchal       | ViratNagar   | Kishangarh |         100 | Apple        | 999999 |
+|         101 | Ansh          | Akbarpura    | Lucknow    |         101 | Amazon       | 987999 |
+|         102 | Aanya         | ShivagiNagar | Pune       |         102 | Dell         | 100000 |
+|         103 | Alisha        | TilakNagar   | Baroda     |         103 | Delloite     | 123456 |
+|         104 | Aditi         | Stylus       | Bahruch    |         104 | Apple        | 987654 |
++-------------+---------------+--------------+------------+-------------+--------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select*from company;
++--------------+-----------+
+| company_name | city      |
++--------------+-----------+
+| Amazon       | Pune      |
+| Apple        | Bangalore |
+| Dell         | Mumbai    |
+| Delloite     | Hyderabad |
++--------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select employee_name,city
+    -> from employee join works on employee.employee_id=works.employee_id
+    -> where company_name='Apple' or company_name='Dell';
++---------------+------------+
+| employee_name | city       |
++---------------+------------+
+| Aanchal       | Kishangarh |
+| Aditi         | Bahruch    |
+| Aanya         | Pune       |
++---------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select employee_name,street,city
+    -> from employee join works on employee.employee_id=works.employee_id              
+    -> where company_name='Apple' and salary>987654;
++---------------+------------+------------+
+| employee_name | street     | city       |
++---------------+------------+------------+
+| Aanchal       | ViratNagar | Kishangarh |
++---------------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select employee_name
+    -> from employee join works on employee.employee_id=works.employee_id              
+    -> where not (company_name='Apple' or company_name='Dell');
++---------------+
+| employee_name |
++---------------+
+| Ansh          |
+| Alisha        |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employee values(105,'arman','rehg','mumbai');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee values(106,'rehman','xyz','delhi');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values(107,'rashi','wxy','agra');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into works values(107,'Apple',12000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into works values(106,'Apple',12000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from works;
++-------------+--------------+--------+
+| employee_id | company_name | salary |
++-------------+--------------+--------+
+|         100 | Apple        | 999999 |
+|         101 | Amazon       | 987999 |
+|         102 | Dell         | 100000 |
+|         103 | Delloite     | 123456 |
+|         104 | Apple        | 987654 |
+|         106 | Apple        |  12000 |
+|         107 | Apple        |  12000 |
++-------------+--------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> insert into works values(105,'Dell',125600);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from works;
++-------------+--------------+--------+
+| employee_id | company_name | salary |
++-------------+--------------+--------+
+|         100 | Apple        | 999999 |
+|         101 | Amazon       | 987999 |
+|         102 | Dell         | 100000 |
+|         103 | Delloite     | 123456 |
+|         104 | Apple        | 987654 |
+|         105 | Dell         | 125600 |
+|         106 | Apple        |  12000 |
+|         107 | Apple        |  12000 |
++-------------+--------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> ^A

@@ -1,0 +1,58 @@
+https://github.com/rilian/db_course_stanford_winter2013/blob/master/sql/sql_soc_network_triggers_challenge_ex.md
+
+
+delimiter $$
+mysql> Create Trigger after_insert1
+    -> for each row
+    -> begin 
+    -> insert into Friend_1 values(new.id1,new.id2);
+    -> insert into Friend_1 values(new.id2,new.id1);
+    -> end
+    -> $$
+
+
+
+
+
+
+Delimiter $$
+mysql> Create Trigger after_delete1 after delete on Friend  for each row begin  delete from Friend_1 where Friend_1.id1=old.id1 and Friend_1.id2=old.id2;
+Delete from Friend_1 where id1=old.id2 and id2=old.id1; end$$
+
+
+Create Trigger ques2 after insert on Highschooler  for each row  begin  if(new.grade<9 or new.id>12)then  insert into  Highschooler_1 values(new.id,new.name,9);
+elseif(new.grade is NULL)then insert into Highschooler_1 values(new.id,new.name,NULL);  end if; end$$
+
+
+
+
+
+
+
+Delimiter $$
+mysql> Create Trigger Graduate
+    -> after update on Highschooler
+    -> for each row 
+    -> begin 
+    -> if(new.grade>12)then
+    -> delete from Highschooler_1 where new.id=id;
+    -> end if;
+    -> end $$
+
+
+
+
+
+
+mysql> Delimiter $$
+mysql> Create Trigger upgrade after update on Highschooler  for each row begin if(new.grade=old.grade+1)then update Highschooler_1 set grade=grade+1 
+	 where id=new.id;
+	 update Highschooler_1 set grade=grade+1
+	 where ID in (Select ID2 from Friend where ID1=new.ID);end if;end $$
+
+
+
+
+
+
+

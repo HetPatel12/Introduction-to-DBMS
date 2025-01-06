@@ -1,0 +1,52 @@
+create table employee(employee_id int(3) primary key, employee_name varchar(20) NOT NULL, city varchar(20));
+create table company(company_name varchar(20) primary key, city varchar(20));
+select * from employee;
+desc employee;
+desc company;
+
+create table works(employee_id int(3) primary key, company_name varchar(20), salary int(6) NOT NULL, foreign key(company_name)references company(company_name));
+desc works;
+
+insert into employee values(100,'Het','Modasa');
+insert into employee values(101,'Vedant','Godhra');
+insert into employee values(102,'Kirtan','Bahucharaji');
+insert into employee values(103,'Anmol','Ludhiana');
+insert into employee values(104,'Kathan','Kalol');
+
+insert into company values('JP Morgan','San Francisco');
+insert into company values('Google','Mountain View');
+insert into company values('Credit Suisse','Zurich');
+insert into company values('Goldman Sach','New York');
+select * from company;
+
+insert into works values(100, 'JP Morgan', 300000);
+insert into works values(101,'JP Morgan',250000);
+insert into works values(102, 'Credit Suisse', 100000);
+insert into works values(103, 'Goldman Sach',150000);
+insert into works values(104, 'Google',175000);
+select * from works;
+
+show tables;
+
+Select employee_name, city from employee, works where company_name='JP Morgan' or company_name = 'Google';
+select * from employee, works where company_name='JP Morgan' or company_name='Google';
+
+select * from works;
+select * from employee;
+select * from employee,works;
+select * from employee join works;
+
+select * from employee join works on employee.employee_id = works.employee_id;
+select*from company;
+
+select employee_name,city from employee join works on employee.employee_id = works.employee_id;
+select employee_name from employee join works on employy.employee_id = works.employee_id;
+
+insert into employee values(105,'Kishan','Mehsana');
+insert into employee values(106,'Meet','Kadi');
+insert into employee values(107,'Sujal','Sanand');
+insert into works values(107,'JP Morgan',150000);
+insert into works values(106,'Credit Suisse',145000);
+insert into works values(105,'Google',132000);
+
+select * from works;

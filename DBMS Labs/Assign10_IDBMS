@@ -1,0 +1,553 @@
+b2@cselab2pc78:~$ mysql -u idbms2 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> source /home/b2/Desktop/arena.sql;
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Assign_8           |
+| Assign_9           |
+| arena1             |
+| arena2             |
+| arena3             |
+| arena4             |
+| arena5             |
+| coffeeStore1       |
+| coffeeStore2       |
+| coffeeStore3       |
+| coffeeStore4       |
+| coffeeStore5       |
+| employees1         |
+| employees2         |
+| employees3         |
+| employees4         |
+| employees5         |
+| information_schema |
+| movieRating1       |
+| movieRating2       |
+| movieRating3       |
+| movieRating4       |
+| movieRating5       |
+| mysql              |
+| performance_schema |
+| social_rollno      |
+| sys                |
+| test1              |
+| test2              |
+| test3              |
+| test4              |
+| test5              |
+| triggers           |
+| university1        |
+| university2        |
+| university3        |
+| university4        |
+| university5        |
++--------------------+
+38 rows in set (0.03 sec)
+
+mysql> use test1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source /home/b2/Desktop/arena.sql;
+Query OK, 0 rows affected (0.81 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.11 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.12 sec)
+
+Query OK, 0 rows affected (0.58 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 0 rows affected (0.43 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 0 rows affected (0.61 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.12 sec)
+
+Query OK, 1 row affected (0.13 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select PerformerName,ActivityName from Activities,Performers where Activities.ActivityID = Performers.Activity.ID;
+ERROR 1054 (42S22): Unknown column 'Performers.Activity.ID' in 'where clause'
+mysql> select PerformerName,ActivityName from Activities,Performers where Activities.ActivityID = Performers.ActivityID;
++---------------+-------------------------+
+| PerformerName | ActivityName            |
++---------------+-------------------------+
+| Harry Chapin  | Doctors without Borders |
+| Billy Joel    | Greenpeace              |
+| James Taylor  | Music in Schools        |
+| Harry Connick | Save the Whales         |
+| Tony Bennett  | USO for Troops          |
+| Jimmy Buffett | Doctors without Borders |
++---------------+-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> create view Act_perf as
+    -> select PerformerName,ActivityName from Activities,Performers where Activities.ActivityID = Performers.ActivityID;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> select * from Act_perf;
++---------------+-------------------------+
+| PerformerName | ActivityName            |
++---------------+-------------------------+
+| Harry Chapin  | Doctors without Borders |
+| Billy Joel    | Greenpeace              |
+| James Taylor  | Music in Schools        |
+| Harry Connick | Save the Whales         |
+| Tony Bennett  | USO for Troops          |
+| Jimmy Buffett | Doctors without Borders |
++---------------+-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into Performers values(8, 'M Philips', 'WastingA Way', 'Margaritaville', 'FL', 21763, 2);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from Act_perf;
++---------------+-------------------------+
+| PerformerName | ActivityName            |
++---------------+-------------------------+
+| Harry Chapin  | Doctors without Borders |
+| Billy Joel    | Greenpeace              |
+| James Taylor  | Music in Schools        |
+| Harry Connick | Save the Whales         |
+| Tony Bennett  | USO for Troops          |
+| Jimmy Buffett | Doctors without Borders |
+| M Philips     | Greenpeace              |
++---------------+-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> update Act_perf set PerformerName = 'Harry Chapinn' where PerformerName = 'Harry Chapin';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Act_perf;
++---------------+-------------------------+
+| PerformerName | ActivityName            |
++---------------+-------------------------+
+| Harry Chapinn | Doctors without Borders |
+| Billy Joel    | Greenpeace              |
+| James Taylor  | Music in Schools        |
+| Harry Connick | Save the Whales         |
+| Tony Bennett  | USO for Troops          |
+| Jimmy Buffett | Doctors without Borders |
+| M Philips     | Greenpeace              |
++---------------+-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> create view Perf_Income as
+    -> select 
+
+^C
+mysql> select PerformerName,ArenaName,ConcertDate,TicketPrice from Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TicketPrice |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  |          32 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |          25 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  |          25 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  |          23 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  |          21 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |          26 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  |          22 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  |          31 |
+| James Taylor  | Civic Arena         | 2005-09-11  |          22 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  |          21 |
+| James Taylor  | Radio City Music    | 2005-09-01  |          29 |
+| Harry Connick | Radio City Music    | 2005-09-11  |          31 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  |          24 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  |          17 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |          22 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |          31 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  |          25 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |          21 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |          31 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  |          25 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  |          28 |
++---------------+---------------------+-------------+-------------+
+21 rows in set (0.00 sec)
+
+mysql> select PerformerName,ArenaName,ConcertDate,(TicketPrice/10) from Performers,Arenas,Concerts where
+ Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID;
++---------------+---------------------+-------------+------------------+
+| PerformerName | ArenaName           | ConcertDate | (TicketPrice/10) |
++---------------+---------------------+-------------+------------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  |           3.2000 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |           2.5000 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  |           2.5000 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  |           2.3000 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  |           2.1000 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |           2.6000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  |           2.2000 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  |           3.1000 |
+| James Taylor  | Civic Arena         | 2005-09-11  |           2.2000 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  |           2.1000 |
+| James Taylor  | Radio City Music    | 2005-09-01  |           2.9000 |
+| Harry Connick | Radio City Music    | 2005-09-11  |           3.1000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  |           2.4000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  |           1.7000 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |           2.2000 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |           3.1000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  |           2.5000 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |           2.1000 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |           3.1000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  |           2.5000 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  |           2.8000 |
++---------------+---------------------+-------------+------------------+
+21 rows in set (0.00 sec)
+
+mysql> select PerformerName,ArenaName,ConcertDate,(ArenaCapacity*0.8*TicketPrice - TicketPrice/10) from
+Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers
+.PerformerID;
++---------------+---------------------+-------------+--------------------------------------------------+
+| PerformerName | ArenaName           | ConcertDate | (ArenaCapacity*0.8*TicketPrice - TicketPrice/10) |
++---------------+---------------------+-------------+--------------------------------------------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  |                                      465916.8000 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |                                       87997.5000 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  |                                      479997.5000 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  |                                      163757.7000 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  |                                      201597.9000 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |                                       91517.4000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  |                                      369597.8000 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  |                                      220716.9000 |
+| James Taylor  | Civic Arena         | 2005-09-11  |                                      320317.8000 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  |                                      201597.9000 |
+| James Taylor  | Radio City Music    | 2005-09-01  |                                      102077.1000 |
+| Harry Connick | Radio City Music    | 2005-09-11  |                                      109116.9000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  |                                      403197.6000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  |                                      326398.3000 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |                                      211197.8000 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |                                      109116.9000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  |                                      479997.5000 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |                                      201597.9000 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |                                      109116.9000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  |                                      479997.5000 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  |                                      199357.2000 |
++---------------+---------------------+-------------+--------------------------------------------------+
+21 rows in set (0.00 sec)
+
+mysql> select PerformerName,ArenaName,ConcertDate,(ArenaCapacity*0.8*TicketPrice)/10 from Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID;
++---------------+---------------------+-------------+------------------------------------+
+| PerformerName | ArenaName           | ConcertDate | (ArenaCapacity*0.8*TicketPrice)/10 |
++---------------+---------------------+-------------+------------------------------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  |                        46592.00000 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |                         8800.00000 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  |                        48000.00000 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  |                        16376.00000 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  |                        20160.00000 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |                         9152.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  |                        36960.00000 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  |                        22072.00000 |
+| James Taylor  | Civic Arena         | 2005-09-11  |                        32032.00000 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  |                        20160.00000 |
+| James Taylor  | Radio City Music    | 2005-09-01  |                        10208.00000 |
+| Harry Connick | Radio City Music    | 2005-09-11  |                        10912.00000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  |                        40320.00000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  |                        32640.00000 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |                        21120.00000 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |                        10912.00000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  |                        48000.00000 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |                        20160.00000 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |                        10912.00000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  |                        48000.00000 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  |                        19936.00000 |
++---------------+---------------------+-------------+------------------------------------+
+21 rows in set (0.01 sec)
+
+mysql> select PerformerName,ArenaName,ConcertDate,(ArenaCapacity*0.8*TicketPrice)/10 as TotalIncome from
+ Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  | 46592.00000 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |  8800.00000 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  | 48000.00000 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  | 16376.00000 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  | 20160.00000 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |  9152.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  | 36960.00000 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  | 22072.00000 |
+| James Taylor  | Civic Arena         | 2005-09-11  | 32032.00000 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  | 20160.00000 |
+| James Taylor  | Radio City Music    | 2005-09-01  | 10208.00000 |
+| Harry Connick | Radio City Music    | 2005-09-11  | 10912.00000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  | 40320.00000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  | 32640.00000 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  | 21120.00000 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  | 10912.00000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  | 48000.00000 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  | 20160.00000 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  | 10912.00000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  | 48000.00000 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  | 19936.00000 |
++---------------+---------------------+-------------+-------------+
+21 rows in set (0.00 sec)
+
+mysql> create view Perf_Income as
+    -> select PerformerName,ArenaName,ConcertDate,(ArenaCapacity*0.8*TicketPrice)/10 as TotalIncome from Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID;
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> select * from Perf_Income;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  | 46592.00000 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |  8800.00000 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  | 48000.00000 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  | 16376.00000 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  | 20160.00000 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |  9152.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  | 36960.00000 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  | 22072.00000 |
+| James Taylor  | Civic Arena         | 2005-09-11  | 32032.00000 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  | 20160.00000 |
+| James Taylor  | Radio City Music    | 2005-09-01  | 10208.00000 |
+| Harry Connick | Radio City Music    | 2005-09-11  | 10912.00000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  | 40320.00000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  | 32640.00000 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  | 21120.00000 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  | 10912.00000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  | 48000.00000 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  | 20160.00000 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  | 10912.00000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  | 48000.00000 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  | 19936.00000 |
++---------------+---------------------+-------------+-------------+
+21 rows in set (0.00 sec)
+
+mysql> select * from Perf_Income limit 8;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Civic Arena         | 2005-09-17  | 46592.00000 |
+| Harry Chapinn | Radio City Music    | 2005-06-12  |  8800.00000 |
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  | 48000.00000 |
+| Harry Chapinn | Roanoke Pavillion   | 2005-09-21  | 16376.00000 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  | 20160.00000 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |  9152.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  | 36960.00000 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  | 22072.00000 |
++---------------+---------------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Perf_Income order by TotalIncome limit 8;
++---------------+-------------------+-------------+-------------+
+| PerformerName | ArenaName         | ConcertDate | TotalIncome |
++---------------+-------------------+-------------+-------------+
+| Harry Chapinn | Radio City Music  | 2005-06-12  |  8800.00000 |
+| Billy Joel    | Radio City Music  | 2005-09-18  |  9152.00000 |
+| James Taylor  | Radio City Music  | 2005-09-01  | 10208.00000 |
+| Jimmy Buffett | Radio City Music  | 2005-09-18  | 10912.00000 |
+| Harry Connick | Radio City Music  | 2005-09-11  | 10912.00000 |
+| Tony Bennett  | Radio City Music  | 2005-09-18  | 10912.00000 |
+| Harry Chapinn | Roanoke Pavillion | 2005-09-21  | 16376.00000 |
+| Jimmy Buffett | Roanoke Pavillion | 2005-09-01  | 19936.00000 |
++---------------+-------------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Perf_Income order by TotalIncome desc limit 8;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  | 48000.00000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  | 48000.00000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  | 48000.00000 |
+| Harry Chapinn | Civic Arena         | 2005-09-17  | 46592.00000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  | 40320.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  | 36960.00000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  | 32640.00000 |
+| James Taylor  | Civic Arena         | 2005-09-11  | 32032.00000 |
++---------------+---------------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> create view Perf_Income as select PerformerName,ArenaName,ConcertDate,(ArenaCapacity*0.8*TicketPrice)/10 as TotalIncome from Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID order by TotalIncome desc limit 8;
+ERROR 1050 (42S01): Table 'Perf_Income' already exists
+mysql> select PerformerName,ArenaName,ConcertDate,(ArenaCapacity*0.8*TicketPrice)/10 as TotalIncome from Performers,Arenas,Concerts where Concerts.ArenaID = Arenas.ArenaID and Concerts.PerformerID = Performers.PerformerID order by TotalIncome desc limit 8;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  | 48000.00000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  | 48000.00000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  | 48000.00000 |
+| Harry Chapinn | Civic Arena         | 2005-09-17  | 46592.00000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  | 40320.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  | 36960.00000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  | 32640.00000 |
+| James Taylor  | Civic Arena         | 2005-09-11  | 32032.00000 |
++---------------+---------------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Perf_Income order by TotalIncome desc limit 8;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Harry Chapinn | Charlotte Coliseum  | 2005-09-11  | 48000.00000 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  | 48000.00000 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  | 48000.00000 |
+| Harry Chapinn | Civic Arena         | 2005-09-17  | 46592.00000 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  | 40320.00000 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  | 36960.00000 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  | 32640.00000 |
+| James Taylor  | Civic Arena         | 2005-09-11  | 32032.00000 |
++---------------+---------------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> select PerformerName,sum(TotalIncome) as TOTAL from Perf_Income Group by PerformerName;
++---------------+--------------+
+| PerformerName | TOTAL        |
++---------------+--------------+
+| Harry Chapinn | 119768.00000 |
+| Billy Joel    |  88344.00000 |
+| James Taylor  |  62400.00000 |
+| Harry Connick |  83872.00000 |
+| Tony Bennett  |  80032.00000 |
+| Jimmy Buffett |  99008.00000 |
++---------------+--------------+
+6 rows in set (0.02 sec)
+
+mysql> select PerformerName,sum(TotalIncome) as TOTAL from Perf_Income;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'test1.Perf_Income.PerformerName'; this is incompatible with sql_mode=only_full_group_by
+mysql> select sum(TotalIncome) as TOTAL from Perf_Income;
++--------------+
+| TOTAL        |
++--------------+
+| 533424.00000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> 
+

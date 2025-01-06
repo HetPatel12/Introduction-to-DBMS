@@ -1,0 +1,386 @@
+b2@cselab2pc78:~$ mysql -u idbms2 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.30-0ubuntu0.20.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use movieRating2;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> source /home/b2/Desktop/Rating.sql;
+Query OK, 0 rows affected (0.41 sec)
+
+Query OK, 0 rows affected (0.75 sec)
+
+Query OK, 0 rows affected (0.30 sec)
+
+Query OK, 0 rows affected (0.42 sec)
+
+Query OK, 0 rows affected (0.41 sec)
+
+Query OK, 0 rows affected (0.37 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.12 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from Reviewer;
++------+------------------+
+| rID  | name             |
++------+------------------+
+|  201 | Sarah Martinez   |
+|  202 | Daniel Lewis     |
+|  203 | Brittany Harris  |
+|  204 | Mike Anderson    |
+|  205 | Chris Jackson    |
+|  206 | Elizabeth Thomas |
+|  207 | James Cameron    |
+|  208 | Ashley White     |
++------+------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from Rating;
++------+------+-------+------------+
+| rID  | mID  | stars | ratingDate |
++------+------+-------+------------+
+|  201 |  101 |     2 | 2011-01-22 |
+|  201 |  101 |     4 | 2011-01-27 |
+|  202 |  106 |     4 | NULL       |
+|  203 |  103 |     2 | 2011-01-20 |
+|  203 |  108 |     4 | 2011-01-12 |
+|  203 |  108 |     2 | 2011-01-30 |
+|  204 |  101 |     3 | 2011-01-09 |
+|  205 |  103 |     3 | 2011-01-27 |
+|  205 |  104 |     2 | 2011-01-22 |
+|  205 |  108 |     4 | NULL       |
+|  206 |  107 |     3 | 2011-01-15 |
+|  206 |  106 |     5 | 2011-01-19 |
+|  207 |  107 |     5 | 2011-01-20 |
+|  208 |  104 |     3 | 2011-01-02 |
++------+------+-------+------------+
+14 rows in set (0.00 sec)
+
+
+mysql> select name from Reviewer,Rating where Reviewer.rID=Rating.rID AND stars
+in (select stars from Rating,Reviewer where Reviewer.rID=Rating.rID AND Reviewer.name = 'Mike Anderson');
++------------------+
+| name             |
++------------------+
+| Mike Anderson    |
+| Chris Jackson    |
+| Elizabeth Thomas |
+| Ashley White     |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> 
+
+^C;
+mysql> select name from Reviewer,Rating where Reviewer.rID=Rating.rID AND mID in (select mID from Rating,Reviewer where Reviewer.rID=Rating.rID AND Reviewer.name = 'Brittany Harris');
++-----------------+
+| name            |
++-----------------+
+| Brittany Harris |
+| Brittany Harris |
+| Brittany Harris |
+| Chris Jackson   |
+| Chris Jackson   |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Rating;
++------+------+-------+------------+
+| rID  | mID  | stars | ratingDate |
++------+------+-------+------------+
+|  201 |  101 |     2 | 2011-01-22 |
+|  201 |  101 |     4 | 2011-01-27 |
+|  202 |  106 |     4 | NULL       |
+|  203 |  103 |     2 | 2011-01-20 |
+|  203 |  108 |     4 | 2011-01-12 |
+|  203 |  108 |     2 | 2011-01-30 |
+|  204 |  101 |     3 | 2011-01-09 |
+|  205 |  103 |     3 | 2011-01-27 |
+|  205 |  104 |     2 | 2011-01-22 |
+|  205 |  108 |     4 | NULL       |
+|  206 |  107 |     3 | 2011-01-15 |
+|  206 |  106 |     5 | 2011-01-19 |
+|  207 |  107 |     5 | 2011-01-20 |
+|  208 |  104 |     3 | 2011-01-02 |
++------+------+-------+------------+
+14 rows in set (0.00 sec)
+
+mysql> select * from Reviewer;
++------+------------------+
+| rID  | name             |
++------+------------------+
+|  201 | Sarah Martinez   |
+|  202 | Daniel Lewis     |
+|  203 | Brittany Harris  |
+|  204 | Mike Anderson    |
+|  205 | Chris Jackson    |
+|  206 | Elizabeth Thomas |
+|  207 | James Cameron    |
+|  208 | Ashley White     |
++------+------------------+
+8 rows in set (0.00 sec)
+
+
+mysql> select * from Movie;
++------+-------------------------+------+------------------+
+| mID  | title                   | year | director         |
++------+-------------------------+------+------------------+
+|  101 | Gone with the Wind      | 1939 | Victor Fleming   |
+|  102 | Star Wars               | 1977 | George Lucas     |
+|  103 | The Sound of Music      | 1965 | Robert Wise      |
+|  104 | E.T.                    | 1982 | Steven Spielberg |
+|  105 | Titanic                 | 1997 | James Cameron    |
+|  106 | Snow White              | 1937 | NULL             |
+|  107 | Avatar                  | 2009 | James Cameron    |
+|  108 | Raiders of the Lost Ark | 1981 | Steven Spielberg |
++------+-------------------------+------+------------------+
+8 rows in set (0.00 sec)
+
+
+mysql> select title from Movie where mID IN (select mID from Rating,Reviewer where Rating.rID = Reviewer.rID and name NOT IN ('Chris Jackson'));
++-------------------------+
+| title                   |
++-------------------------+
+| Gone with the Wind      |
+| The Sound of Music      |
+| E.T.                    |
+| Snow White              |
+| Avatar                  |
+| Raiders of the Lost Ark |
++-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select title from Movie where mID IN (select mID from Rating,Reviewer where Rating.rID = Reviewer.rID and name IN ('Chris Jackson'));
++-------------------------+
+| title                   |
++-------------------------+
+| The Sound of Music      |
+| E.T.                    |
+| Raiders of the Lost Ark |
++-------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select title from Movie where mID NOT IN (select mID from Rating,Reviewer where Rating.rID = Reviewer.rID and name IN ('Chris Jackson'));
++--------------------+
+| title              |
++--------------------+
+| Gone with the Wind |
+| Star Wars          |
+| Titanic            |
+| Snow White         |
+| Avatar             |
++--------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from Movie where mID IN (select mID from Rating inner join Reviewer AS R1 on Rating.rID
+= R1.rID INNER JOIN Reviewer as R2 ON R1.rID=R2.rID AND Rating.mID=205 AND Rating.mID not in (203));
+Empty set (0.00 sec)
+
+
+mysql> select * from Movie where mID IN (select mID from Rating as R3 inner joimysql> select * from Movie where mID IN (select mID from Rating inner join Reviewer AS R1 on Rating.rID = R1.rID INNER JOIN Reviewer as R2 ON R1.rID=R2.rID AND Rating.mID=205 AND Rating.mID not in (203));
+Empty set (0.00 sec)
+
+mysql> select * from Movie where mID IN (select mID from Rating inner join Revie              ating.rID = R1.rID INNER JOIN Reviewer as R2 ON R1.rID=R2.rID AND Rating.mID=205 AND Rating.mID not in (203));
+Empty set (0.00 sec)
+
+mysql> select * from Movie INNER JOIN Rating as R1 on Movie.mID=R1.mID INNER JOIN Rating as R2 on R1.rID = R2.rID where R1.rID=205 AND R2.rID not in (203));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select * from Movie INNER JOIN Rating as R1 on Movie.mID=R1.mID INNER JOIN Rating as R2 on R1.rID = R2.rID where R1.rID=205 AND R2.rID not in (203);
++------+-------------------------+------+------------------+------+------+-------+------------+------+------+-------+------------+
+| mID  | title                   | year | director         | rID  | mID  | stars | ratingDate | rID  | mID  | stars | ratingDate |
++------+-------------------------+------+------------------+------+------+-------+------------+------+------+-------+------------+
+|  108 | Raiders of the Lost Ark | 1981 | Steven Spielberg |  205 |  108 |     4 | NULL       |  205 |  103 |     3 | 2011-01-27 |
+|  104 | E.T.                    | 1982 | Steven Spielberg |  205 |  104 |     2 | 2011-01-22 |  205 |  103 |     3 | 2011-01-27 |
+|  103 | The Sound of Music      | 1965 | Robert Wise      |  205 |  103 |     3 | 2011-01-27 |  205 |  103 |     3 | 2011-01-27 |
+|  108 | Raiders of the Lost Ark | 1981 | Steven Spielberg |  205 |  108 |     4 | NULL       |  205 |  104 |     2 | 2011-01-22 |
+|  104 | E.T.                    | 1982 | Steven Spielberg |  205 |  104 |     2 | 2011-01-22 |  205 |  104 |     2 | 2011-01-22 |
+|  103 | The Sound of Music      | 1965 | Robert Wise      |  205 |  103 |     3 | 2011-01-27 |  205 |  104 |     2 | 2011-01-22 |
+|  108 | Raiders of the Lost Ark | 1981 | Steven Spielberg |  205 |  108 |     4 | NULL       |  205 |  108 |     4 | NULL       |
+|  104 | E.T.                    | 1982 | Steven Spielberg |  205 |  104 |     2 | 2011-01-22 |  205 |  108 |     4 | NULL       |
+|  103 | The Sound of Music      | 1965 | Robert Wise      |  205 |  103 |     3 | 2011-01-27 |  205 |  108 |     4 | NULL       |
++------+-------------------------+------+------------------+------+------+-------+------------+------+------+-------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select title from Movie INNER JOIN Rating as R1 on Movie.mID=R1.mID INNE
+R JOIN Rating as R2 on R1.rID = R2.rID where R1.rID=205 AND R2.rID not in (203)
+;
++-------------------------+
+| title                   |
++-------------------------+
+| Raiders of the Lost Ark |
+| E.T.                    |
+| The Sound of Music      |
+| Raiders of the Lost Ark |
+| E.T.                    |
+| The Sound of Music      |
+| Raiders of the Lost Ark |
+| E.T.                    |
+| The Sound of Music      |
++-------------------------+
+9 rows in set (0.00 sec)
+
+mysql> select distinct title, director
+    -> from movie m1
+    -> where (select count(*) from movie m2 where m1.director = m2.director) > 1
+    -> order by director, title;
+ERROR 1146 (42S02): Table 'movieRating2.movie' doesn't exist
+mysql> select name from Movie where director in (select director from Movie group by director having count(*) >1);
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select title from Movie where director in (select director from Movie group by director having count(*) >1);
++-------------------------+
+| title                   |
++-------------------------+
+| E.T.                    |
+| Titanic                 |
+| Avatar                  |
+| Raiders of the Lost Ark |
++-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select director from Movie where director in (select director from Movie group by director having
+ count(*) >1);
++------------------+
+| director         |
++------------------+
+| Steven Spielberg |
+| James Cameron    |
+| James Cameron    |
+| Steven Spielberg |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct director from Movie where director in (select director from Movie group by direct
+or having count(*) >1);
++------------------+
+| director         |
++------------------+
+| Steven Spielberg |
+| James Cameron    |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select title from Movie where mID in (select mID from Rating where rID =205 ) and mID NOT IN (SELECT mID from Rating where rID= 203);
++-------+
+| title |
++-------+
+| E.T.  |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select title FROM Movie,Rating where Movie.mID = Rating.mID group by title;
++-------------------------+
+| title                   |
++-------------------------+
+| Gone with the Wind      |
+| Snow White              |
+| The Sound of Music      |
+| Raiders of the Lost Ark |
+| E.T.                    |
+| Avatar                  |
++-------------------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select title,COUNT(R1.mID) from Movie,Rating as R1 where Movie.mID=R1.rID group by title;
+Empty set (0.00 sec)
+
+mysql> select title,COUNT(R1.mID) from Movie,Rating as R1 where Movie.mID=R1.mID group by title;
++-------------------------+---------------+
+| title                   | COUNT(R1.mID) |
++-------------------------+---------------+
+| Gone with the Wind      |             3 |
+| Snow White              |             2 |
+| The Sound of Music      |             2 |
+| Raiders of the Lost Ark |             3 |
+| E.T.                    |             2 |
+| Avatar                  |             2 |
++-------------------------+---------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select title,COUNT(Movie.mID) from Movie,Rating as R1 where Movie.mID=R1.mID group by title;
++-------------------------+------------------+
+| title                   | COUNT(Movie.mID) |
++-------------------------+------------------+
+| Gone with the Wind      |                3 |
+| Snow White              |                2 |
+| The Sound of Music      |                2 |
+| Raiders of the Lost Ark |                3 |
+| E.T.                    |                2 |
+| Avatar                  |                2 |
++-------------------------+------------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+

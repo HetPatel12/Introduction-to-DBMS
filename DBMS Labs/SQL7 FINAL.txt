@@ -1,0 +1,472 @@
+3 Schema Architecture
+View1  View2----Viewn
+	VIEWLevel
+: 
+
+
+Conceptual level: How db look
+
+Physical Level: Store data, transaction etc.
+
+
+
+
+select x,y,z from t1,t2,t3,t4
+create view v1 as 
+INSERT INTO V1 VALUES('XYZ',12); if allowed then called updatable.
+
+
+it is used to hide query from non specialized users
+
+
+
+
+
+
+
+
+
+
+
+mysql -u idbms5 -p
+Enter password: 
+
+create database DatabaseName;
+use DatabaseName;
+
+source //home/b5/Downloads/arena.sql
+
+2)
+mysql> create view v1 as
+    -> select PerformerName, ActivityName from Performers join Activities where Performers.ActivityID=Activities.ActivityID;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> select * from v1;
++---------------+-------------------------+
+| PerformerName | ActivityName            |
++---------------+-------------------------+
+| Harry Chapin  | Doctors without Borders |
+| Billy Joel    | Greenpeace              |
+| James Taylor  | Music in Schools        |
+| Harry Connick | Save the Whales         |
+| Tony Bennett  | USO for Troops          |
+| Jimmy Buffett | Doctors without Borders |
++---------------+-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> create view v1 as
+    -> select PerformerName, ActivityName from Performers join Activities where Performers.ActivityID=Activities.ActivityID;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> select * from v1;
++---------------+-------------------------+
+| PerformerName | ActivityName            |
++---------------+-------------------------+
+| Harry Chapin  | Doctors without Borders |
+| Billy Joel    | Greenpeace              |
+| James Taylor  | Music in Schools        |
+| Harry Connick | Save the Whales         |
+| Tony Bennett  | USO for Troops          |
+| Jimmy Buffett | Doctors without Borders |
++---------------+-------------------------+
+6 rows in set (0.00 sec)
+
+3)
+mysql> insert into Performers(PerformerID,PerformerName,Street,City,State,Zip,ActivityID) values(8,'Het','BDesaiRoad','Juhu','MH',480061,4);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from v1;
++---------------+---------------------------+
+| PerformerName | ActivityName              |
++---------------+---------------------------+
+| Harry Chapin  | Doctors without Borders   |
+| Billy Joel    | Greenpeace                |
+| James Taylor  | Music in Schools          |
+| Harry Connick | Save the Whales           |
+| Tony Bennett  | USO for Troops            |
+| Jimmy Buffett | Doctors without Borders   |
+| Het           | Home for Aging Rock Stars |
++---------------+---------------------------+
+7 rows in set (0.00 sec)
+
+
+4)
+mysql> update v1 set PerformerName='HenryChappin' where PerformerName='Harry Chapin';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from v1;
++---------------+---------------------------+
+| PerformerName | ActivityName              |
++---------------+---------------------------+
+| HenryChappin  | Doctors without Borders   |
+| Billy Joel    | Greenpeace                |
+| James Taylor  | Music in Schools          |
+| Harry Connick | Save the Whales           |
+| Tony Bennett  | USO for Troops            |
+| Jimmy Buffett | Doctors without Borders   |
+| Het           | Home for Aging Rock Stars |
++---------------+---------------------------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+5)
+mysql> CREATE VIEW Perf_Income as select PerformerName,ArenaName,ConcertDate,0.1*TicketPrice*0.8*ArenaCapacity as TotalIncome from Performers, Concerts, Arenas 
+       where Performers.PerformerID AND Concerts.ArenaID=Arenas.ArenaID;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> SELECT * FROM Perf_Income;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Het           | Civic Arena         | 2005-09-17  |    46592.00 |
+| Jimmy Buffett | Civic Arena         | 2005-09-17  |    46592.00 |
+| Tony Bennett  | Civic Arena         | 2005-09-17  |    46592.00 |
+| Harry Connick | Civic Arena         | 2005-09-17  |    46592.00 |
+| James Taylor  | Civic Arena         | 2005-09-17  |    46592.00 |
+| Billy Joel    | Civic Arena         | 2005-09-17  |    46592.00 |
+| HenryChappin  | Civic Arena         | 2005-09-17  |    46592.00 |
+| Het           | Radio City Music    | 2005-06-12  |     8800.00 |
+| Jimmy Buffett | Radio City Music    | 2005-06-12  |     8800.00 |
+| Tony Bennett  | Radio City Music    | 2005-06-12  |     8800.00 |
+| Harry Connick | Radio City Music    | 2005-06-12  |     8800.00 |
+| James Taylor  | Radio City Music    | 2005-06-12  |     8800.00 |
+| Billy Joel    | Radio City Music    | 2005-06-12  |     8800.00 |
+| HenryChappin  | Radio City Music    | 2005-06-12  |     8800.00 |
+| Het           | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Het           | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Tony Bennett  | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Harry Connick | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| James Taylor  | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| HenryChappin  | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Het           | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Harry Connick | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| James Taylor  | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Het           | Radio City Music    | 2005-09-18  |     9152.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |     9152.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |     9152.00 |
+| Harry Connick | Radio City Music    | 2005-09-18  |     9152.00 |
+| James Taylor  | Radio City Music    | 2005-09-18  |     9152.00 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |     9152.00 |
+| HenryChappin  | Radio City Music    | 2005-09-18  |     9152.00 |
+| Het           | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Jimmy Buffett | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Tony Bennett  | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Harry Connick | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| James Taylor  | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| HenryChappin  | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Het           | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Tony Bennett  | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Harry Connick | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| James Taylor  | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| HenryChappin  | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Het           | Civic Arena         | 2005-09-11  |    32032.00 |
+| Jimmy Buffett | Civic Arena         | 2005-09-11  |    32032.00 |
+| Tony Bennett  | Civic Arena         | 2005-09-11  |    32032.00 |
+| Harry Connick | Civic Arena         | 2005-09-11  |    32032.00 |
+| James Taylor  | Civic Arena         | 2005-09-11  |    32032.00 |
+| Billy Joel    | Civic Arena         | 2005-09-11  |    32032.00 |
+| HenryChappin  | Civic Arena         | 2005-09-11  |    32032.00 |
+| Het           | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Harry Connick | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Het           | Radio City Music    | 2005-09-01  |    10208.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-01  |    10208.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-01  |    10208.00 |
+| Harry Connick | Radio City Music    | 2005-09-01  |    10208.00 |
+| James Taylor  | Radio City Music    | 2005-09-01  |    10208.00 |
+| Billy Joel    | Radio City Music    | 2005-09-01  |    10208.00 |
+| HenryChappin  | Radio City Music    | 2005-09-01  |    10208.00 |
+| Het           | Radio City Music    | 2005-09-11  |    10912.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-11  |    10912.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-11  |    10912.00 |
+| Harry Connick | Radio City Music    | 2005-09-11  |    10912.00 |
+| James Taylor  | Radio City Music    | 2005-09-11  |    10912.00 |
+| Billy Joel    | Radio City Music    | 2005-09-11  |    10912.00 |
+| HenryChappin  | Radio City Music    | 2005-09-11  |    10912.00 |
+| Het           | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Jimmy Buffett | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Tony Bennett  | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| James Taylor  | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| HenryChappin  | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Het           | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Het           | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Harry Connick | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| James Taylor  | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Het           | Radio City Music    | 2005-09-18  |    10912.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |    10912.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Harry Connick | Radio City Music    | 2005-09-18  |    10912.00 |
+| James Taylor  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |    10912.00 |
+| HenryChappin  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Het           | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Het           | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Harry Connick | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| James Taylor  | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Het           | Radio City Music    | 2005-09-18  |    10912.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |    10912.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Harry Connick | Radio City Music    | 2005-09-18  |    10912.00 |
+| James Taylor  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |    10912.00 |
+| HenryChappin  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Het           | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Het           | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Tony Bennett  | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Harry Connick | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| James Taylor  | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| HenryChappin  | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
++---------------+---------------------+-------------+-------------+
+147 rows in set (0.01 sec)
+
+
+
+6)
+mysql> select * from Perf_Income order by TotalIncome desc LIMIT 8;
++---------------+--------------------+-------------+-------------+
+| PerformerName | ArenaName          | ConcertDate | TotalIncome |
++---------------+--------------------+-------------+-------------+
+| Harry Connick | Charlotte Coliseum | 2005-09-11  |    48000.00 |
+| Het           | Charlotte Coliseum | 2005-09-01  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum | 2005-09-11  |    48000.00 |
+| James Taylor  | Charlotte Coliseum | 2005-09-11  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum | 2005-09-11  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum | 2005-09-11  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum | 2005-09-11  |    48000.00 |
+| Het           | Charlotte Coliseum | 2005-09-11  |    48000.00 |
++---------------+--------------------+-------------+-------------+
+8 rows in set (0.00 sec)
+
+7)
+mysql> select PerformerName,ArenaName,ConcertDate,0.1*TicketPrice*0.8*ArenaCapacity as TotalIncome from Performers, Concerts, Arenas 
+	 where Performers.PerformerID AND Concerts.ArenaID=Arenas.ArenaID;
++---------------+---------------------+-------------+-------------+
+| PerformerName | ArenaName           | ConcertDate | TotalIncome |
++---------------+---------------------+-------------+-------------+
+| Het           | Civic Arena         | 2005-09-17  |    46592.00 |
+| Jimmy Buffett | Civic Arena         | 2005-09-17  |    46592.00 |
+| Tony Bennett  | Civic Arena         | 2005-09-17  |    46592.00 |
+| Harry Connick | Civic Arena         | 2005-09-17  |    46592.00 |
+| James Taylor  | Civic Arena         | 2005-09-17  |    46592.00 |
+| Billy Joel    | Civic Arena         | 2005-09-17  |    46592.00 |
+| HenryChappin  | Civic Arena         | 2005-09-17  |    46592.00 |
+| Het           | Radio City Music    | 2005-06-12  |     8800.00 |
+| Jimmy Buffett | Radio City Music    | 2005-06-12  |     8800.00 |
+| Tony Bennett  | Radio City Music    | 2005-06-12  |     8800.00 |
+| Harry Connick | Radio City Music    | 2005-06-12  |     8800.00 |
+| James Taylor  | Radio City Music    | 2005-06-12  |     8800.00 |
+| Billy Joel    | Radio City Music    | 2005-06-12  |     8800.00 |
+| HenryChappin  | Radio City Music    | 2005-06-12  |     8800.00 |
+| Het           | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-11  |    48000.00 |
+| Het           | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Tony Bennett  | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Harry Connick | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| James Taylor  | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| HenryChappin  | Roanoke Pavillion   | 2005-09-21  |    16376.00 |
+| Het           | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Harry Connick | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| James Taylor  | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-08-11  |    20160.00 |
+| Het           | Radio City Music    | 2005-09-18  |     9152.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |     9152.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |     9152.00 |
+| Harry Connick | Radio City Music    | 2005-09-18  |     9152.00 |
+| James Taylor  | Radio City Music    | 2005-09-18  |     9152.00 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |     9152.00 |
+| HenryChappin  | Radio City Music    | 2005-09-18  |     9152.00 |
+| Het           | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Jimmy Buffett | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Tony Bennett  | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Harry Connick | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| James Taylor  | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| HenryChappin  | Riverfront Coliseum | 2005-09-21  |    36960.00 |
+| Het           | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Tony Bennett  | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Harry Connick | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| James Taylor  | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| HenryChappin  | Roanoke Pavillion   | 2005-09-11  |    22072.00 |
+| Het           | Civic Arena         | 2005-09-11  |    32032.00 |
+| Jimmy Buffett | Civic Arena         | 2005-09-11  |    32032.00 |
+| Tony Bennett  | Civic Arena         | 2005-09-11  |    32032.00 |
+| Harry Connick | Civic Arena         | 2005-09-11  |    32032.00 |
+| James Taylor  | Civic Arena         | 2005-09-11  |    32032.00 |
+| Billy Joel    | Civic Arena         | 2005-09-11  |    32032.00 |
+| HenryChappin  | Civic Arena         | 2005-09-11  |    32032.00 |
+| Het           | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Harry Connick | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| James Taylor  | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-09-16  |    20160.00 |
+| Het           | Radio City Music    | 2005-09-01  |    10208.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-01  |    10208.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-01  |    10208.00 |
+| Harry Connick | Radio City Music    | 2005-09-01  |    10208.00 |
+| James Taylor  | Radio City Music    | 2005-09-01  |    10208.00 |
+| Billy Joel    | Radio City Music    | 2005-09-01  |    10208.00 |
+| HenryChappin  | Radio City Music    | 2005-09-01  |    10208.00 |
+| Het           | Radio City Music    | 2005-09-11  |    10912.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-11  |    10912.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-11  |    10912.00 |
+| Harry Connick | Radio City Music    | 2005-09-11  |    10912.00 |
+| James Taylor  | Radio City Music    | 2005-09-11  |    10912.00 |
+| Billy Joel    | Radio City Music    | 2005-09-11  |    10912.00 |
+| HenryChappin  | Radio City Music    | 2005-09-11  |    10912.00 |
+| Het           | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Jimmy Buffett | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Tony Bennett  | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Harry Connick | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| James Taylor  | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Billy Joel    | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| HenryChappin  | Riverfront Coliseum | 2005-09-17  |    40320.00 |
+| Het           | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-18  |    32640.00 |
+| Het           | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Harry Connick | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| James Taylor  | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-09-11  |    21120.00 |
+| Het           | Radio City Music    | 2005-09-18  |    10912.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |    10912.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Harry Connick | Radio City Music    | 2005-09-18  |    10912.00 |
+| James Taylor  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |    10912.00 |
+| HenryChappin  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Het           | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-01  |    48000.00 |
+| Het           | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Jimmy Buffett | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Tony Bennett  | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Harry Connick | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| James Taylor  | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Billy Joel    | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| HenryChappin  | Carolina Coliseum   | 2005-09-11  |    20160.00 |
+| Het           | Radio City Music    | 2005-09-18  |    10912.00 |
+| Jimmy Buffett | Radio City Music    | 2005-09-18  |    10912.00 |
+| Tony Bennett  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Harry Connick | Radio City Music    | 2005-09-18  |    10912.00 |
+| James Taylor  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Billy Joel    | Radio City Music    | 2005-09-18  |    10912.00 |
+| HenryChappin  | Radio City Music    | 2005-09-18  |    10912.00 |
+| Het           | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Jimmy Buffett | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Tony Bennett  | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Harry Connick | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| James Taylor  | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Billy Joel    | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| HenryChappin  | Charlotte Coliseum  | 2005-09-16  |    48000.00 |
+| Het           | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Jimmy Buffett | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Tony Bennett  | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Harry Connick | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| James Taylor  | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| Billy Joel    | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
+| HenryChappin  | Roanoke Pavillion   | 2005-09-01  |    19936.00 |
++---------------+---------------------+-------------+-------------+
+147 rows in set (0.00 sec)
+
+
+
+
+8)
+mysql> select PerformerName, sum(TotalIncome) from Perf_Income group by PerformerName;
++---------------+------------------+
+| PerformerName | sum(TotalIncome) |
++---------------+------------------+
+| Het           |        533424.00 |
+| Jimmy Buffett |        533424.00 |
+| Tony Bennett  |        533424.00 |
+| Harry Connick |        533424.00 |
+| James Taylor  |        533424.00 |
+| Billy Joel    |        533424.00 |
+| HenryChappin  |        533424.00 |
++---------------+------------------+
+7 rows in set (0.01 sec)
+
+
+9)
+mysql> update Perf_Income set TotalIncome = 100000 where PerformerName = "Jimmy Buffett";
+ERROR 1348 (HY000): Column 'TotalIncome' is not updatable
+
+

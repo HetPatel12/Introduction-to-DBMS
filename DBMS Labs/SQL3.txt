@@ -1,0 +1,28 @@
+1. select * from Movie where director = 'steven
+spielberg';
+
+
+2. select Movie.mID from Movie, Rating where stars>3 and stars <5 and Movie.mID=Rating.mID;
+
+3. select Movie.mID from Movie, Rating where (stars=3 or stars =5) and Movie.mID=Rating.mID;
+
+3. select Movie.mID from Movie inner join Rating where Movie.mID= Rating.mID and (stars = 3 or stars = 5);
+
+4. select * from Movie where director is null;
+
+5. select rID , mID from Rating where ratingDate is not null;
+
+6. select title from Movie inner join Rating where Movie.mID=Rating.mID and rID=203 ;
+
+7. select Reviewer.name from (Reviewer inner join Rating on (Reviewer.rID= Rating.rID) inner join Movie on (Movie.mID = Rating.mID) and Movie.title='Gone with the Wind') ;
+
+
+8th wala sahi nahi hai!!!!!!!!
+8. select title from Movie inner join Rating on Movie.mID=Rating.mID where rID=205 or rID=203;
+
+9. select title from Reviewer inner join Rating
+on Rating.rID= Reviewer.rID inner join Movie on Movie.mID=Rating.mID where Reviewer.name='Chris Jackson' or Reviewer.name = 'James Cameron' ;
+
+14. select name from Rating right outer join Reviewer on Rating.rID = Reviewer.rID where mID is null;
+
+16. select name,title,stars from Rating inner join Reviewer on Rating.rID = Reviewer.rID inner join Movie on Movie.mId = Rating.mID where name=director;

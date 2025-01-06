@@ -1,0 +1,143 @@
+HetPatel
+
+mysql> create database lab8;
+
+Query OK, 1 row affected (0.15 sec)
+
+mysql> use lab8;
+
+Database changed
+
+mysql> Create table t1(id int primary key, name varchar(5));
+
+Query OK, 0 rows affected (0.89 sec)
+
+mysql> Create table t2(id int, name varchar(5));
+
+Query OK, 0 rows affected (0.97 sec)
+
+
+
+
+1.
+
+mysql> delimiter $$
+
+mysql> Create Trigger t1
+
+-> After insert on t1
+
+-> for each row
+
+-> begin
+
+-> insert into t2 values(new.id,new.name);
+
+-> insert into t2 values(new.id,new.name);
+
+-> end
+
+-> $$
+
+Query OK, 0 rows affected (0.12 sec)
+
+
+mysql> delimiter ;
+
+mysql> insert into t1 values(10,'Het');
+
+Query OK, 1 row affected (0.09 sec)
+
+
+mysql> Select * from t1;
+
++----+------+
+| id | name |
++----+------+
+| 10 | Het  |
++----+------+
+
+1 row in set (0.00 sec)
+
+
+mysql> Select * from t2;
+
++------+------+
+| id   | name |
++------+------+
+| 10   | Het  |
+| 10   | Het  |
++------+------+
+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+2.
+
+mysql> delimiter $$
+
+mysql> Create Trigger trg3
+
+-> After delete on t1
+
+-> for each row
+
+-> begin
+
+-> delete from t1 where t1.id=old.id;
+
+-> end
+
+-> $$
+
+Query OK, 0 rows affected (0.14 sec)
+
+
+Delimiter ;
+
+mysql> delete from t1 where id=10;
+
+
+
+
+
+
+
+
+
+
+
+q1
+create trigger add_in_t2
+    -> after insert on t1
+    -> for each row
+    -> insert into t2 values (new.id, new.name);
+
+
+q2
+create trigger d_in_t2 after delete on t1 for each row delete from t2 where t2.id = old.id;
+
+
+q3
+create trigger tg2 after insert on t1 for each row insert into log  values (new.id, new.name, ‘insert’);
+create trigger tg1 after delete on t1 for each row insert into log values (old.id, old.name, ‘delete’);
+create trigger tg3 after update on t1 for each row insert into log values (new.id, new.name, 'update');
+create trigger tg4 after update on t1 for each row insert into log values (old.id, old.name, 'oupdate');
+
+
+
+
+
+q3
+create trigger trg6 after insert on t1 for each row begin  insert into log values(new.id,new.name,"insert"); end$
+create trigger trg7 after delete on t1 for each row begin  insert into log values(old.id,old.name,"delete"); end$
+create trigger trg8 after update on t1 for each row begin  insert into log values(new.id,new.name,"update"); end$
+create trigger trg10 before update on t1 for each row begin  insert into log    values(old.id,old.name,"oupdate"); end$
+
+
+

@@ -1,0 +1,63 @@
+create table instructor(id int primary key, name varchar(20), dept varchar(20), salary int);
+create table department(dept varchar(20) primary key, building int, budget int);
+create table course(course_id int primary key, dept varchar(20), credits int);
+
+select * from instructor;
+alter table instructor;
+show tables;
+alter table instructor modify id int;
+desc instructor;
+
+alter table department add check(dept('cce','mme','cse','ece','phy','bio'));
+desc department;
+insert into department values("ece",98,90);
+insert into department values("e",99,92);
+
+alter table department add constraint check(dept('cce','mme','cse','ece','phy','bio'));
+insert into department values('o',78,87);
+select * from department;
+
+alter table department add constraint check(dept('cce','mme','cse','ece','phy','bio'));
+insert into department values('ok',78,87); -- violated rules, not inserted
+insert into department values('cce',90,93); -- inserted
+select * from department;
+
+desc department;
+insert into department values('yguy',78,90);
+select * from department;
+
+alter table department add constraint check(budget>=20);
+
+insert into department values('qwea',75,21);
+
+alter table department add check(dept('cce','mme','cse','ece','phy','bio'));
+insert into department values('yg',78,10);
+select * from department;
+
+alter table department modify column dept enum('cce','mme','cse','ece','phy','bio');
+insert into department values('ece',89,100);
+insert into department values('e',89,100);
+
+desc department;
+describe department;
+
+drop table department;
+create table department(dept varchar(20) primary key, building int, budget int);
+alter table course add constraint foreign key (dept) references department(dept) on delete cascade
+alter table instructor add email varchar(20);
+
+desc instructor;
+alter table instructor add constraint unique (email);
+alter table instructor add dob date;
+
+alter table department alter budget set default 0;
+alter table department add constraint check (budget>=0);
+desc department;
+insert into department('ece',9,-9);
+
+alter table instructor modify dob varchar(20);
+delete from department where dept='ece';
+select * from department;
+insert into department values('phy',45, 89);
+update department set dept='phy' where dept ='ece';
+select * from department;
